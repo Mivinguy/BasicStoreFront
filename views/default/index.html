@@ -1,0 +1,149 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+    var add_products_url = "{{=URL('api', 'add_products', user_signature=True)}}";
+    var add_review_url = "{{=URL('api', 'add_review', user_signature=True)}}";
+    var get_products_list_url = "{{=URL('api', 'get_products_list')}}";
+    var get_reviews_list_url = "{{=URL('api', 'get_reviews_list')}}";
+    var update_desired_quan_url = "{{=URL('api', 'update_desired_quan')}}";
+    // Stars.
+    var get_ratings_list_url = "{{=URL('api', 'get_ratings')}}";
+    var set_stars_url = "{{=URL('api', 'set_stars', user_signature=True)}}";
+    var get_user_url = "{{=URL('api', 'get_curr_user')}}";
+    var set_avg_url = "{{=URL('api', 'set_avg')}}";
+    var clear_cart_url = "{{=URL('api', 'clear_cart')}}";
+    var inc_cart_url = "{{=URL('api', 'inc_cart', user_signature=True)}}";
+    var get_cart_url = "{{=URL('api', 'get_cart', user_signature=True)}}";
+    var is_logged_in = {{='false' if auth.user is None else 'true'}};
+</script>
+{{end}}
+
+
+<div class="main_content">
+
+
+    <div id="vue-div" class="display:none">
+      <div v-if="page=='prod'">
+          <button class="btn" v-on:click="goto('cart')">
+            <i class="fa fa-lg fa-shopping-cart"></i>Cart
+          </button>
+      </div>
+
+      <!-- Page for products -->
+      <div v-if="page=='prod'">
+      <!-- Message in case there are no posts. -->
+      <div v-if="products_list.length === 0">There are no products.</div>
+
+      <!-- We display the posts. -->
+      <div id="products_list">
+        <div class="products_div" v-for="products in products_list">
+          <div class="product_name">${products.product_name}</div> <div class="product_price">$${products.product_price}</div>
+          <div class="product_description">${products.product_description}</div>
+          <div class="buy_buttons">
+                            <button class="btn" v-on:click="inc_desired_quantity(products._idx, 1)"><i class="fa fa-plus"></i></button>
+                            <span class="desired_quantity">${products.desired_quantity}</span>
+                            <button class="btn" v-on:click="inc_desired_quantity(products._idx, -1)"><i class="fa fa-minus"></i></button>
+                            <button class="btn red" v-on:click="buy_product(products._idx)"><i class="fa fa-lg fa-shopping-cart"></i> Buy<i v-if="confirm_second" class="fa fa-check"></i></button>
+          </div>
+          <div class="second_box">
+            <div class="star_rating">
+                    <span v-for="idx in star_indices">
+                      <i v-if="idx <= products.avg_star_display" class="fa fa-star"></i>
+                      <i v-if="idx > products.avg_star_display" class="fa fa-star-o"></i>
+                    </span>
+              <button id="get-reviews" v-on:click="get_user(products._idx)">Reviews</button>
+            </div>
+          </div>
+          <div class="attributes">
+
+            <div>
+              <output v-model="get_average(products._idx)"></output>
+            </div>
+
+            <div id="reviews_list" v-if="products._show_reviews">
+              <br>
+              <div v-if="is_logged_in">Your Review:</div>
+              <br>
+                <div v-if="is_logged_in" class="star_rating">
+                  <span v-on:mouseout="stars_out(products._idx)">
+                    <span v-on:mouseover="stars_over(products._idx, idx)"
+                          v-on:click="set_stars(products._idx, idx)"
+                          v-for="idx in star_indices">
+                      <i v-if="idx <= products._num_stars_display" class="fa fa-star"></i>
+                      <i v-if="idx > products._num_stars_display" class="fa fa-star-o"></i>
+                    </span>
+                  </span>
+                </div>
+              <br>
+
+
+                <textarea v-if="is_logged_in" v-model="edit_review"></textarea>
+                <button v-if="is_logged_in" id="save" v-on:click="save_review(products._idx)">Save<i v-if="confirm" class="fa fa-check"></i></button>
+                <div style="clear: both"></div>
+
+              <div>Other Reviews:</div>
+                <div class="reviews_div" v-for="reviews in reviews_list">
+
+                  <div class="reviews_stars">Stars given: ${reviews.stars}</div>
+                  <div class="reviews_text">Review: ${reviews.review_text}</div>
+                  <div class="reviews_name">${reviews.review_email}</div>
+                </div>
+
+                <button id="close" v-on:click="close_review(products._idx)">Close</button>
+              <div style="clear: both"></div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+      <!-- Page for Shopping cart -->
+      <div v-if="page=='cart'">
+
+        <div v-if="cart_list.length === 0">There is nothing in your cart.</div>
+        <div class="cart_div" v-for="item in cart_list">
+          <div class="item_name">Item ID: ${item.product_number}</div>
+          <div class="item_amount">Amount: ${item.amount}</div>
+
+
+
+
+
+
+
+
+      </div>
+        <span>Total: </span>
+        <span v-html="total"></span>
+        <div>
+          <button class="btn" v-on:click="goto('prod')">Back to Store</button>
+        </div>
+        <a href="#popup1">
+          <button class="btn" v-on:click="goto('popup')">Complete Purchase</button>
+        </a>
+
+      </div>
+
+          <div v-if="popup=='true'" class="modal" id="popup1">
+            <div class="twothirds rounded white padded">
+              <h2>Thank you for your order of $${total}</h2>
+              <div class="right">
+                <div>
+                <button class="btn" v-on:click="goto('prod_from_popup')">Back to Store</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+</div>
+</div>
+
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>

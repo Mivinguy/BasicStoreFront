@@ -1,0 +1,8 @@
+a {color:#26a69a}
+a:not(.btn):not(.noeffect):hover {color:#26a69a}
+a:not(.btn):not(.noeffect):after {background-color:#26a69a}
+.btn, button, [type=button], [type=submit] {background-color:#C2C2C2; color:black; float:right;}
+.progress .determinate {background-color:#26a69a}
+.progress .indeterminate {background-color:#26a69a}
+.tags > span {background-color: #26a69a}
+.tags.dismissible > span.off:hover {background-color:#26a69a}

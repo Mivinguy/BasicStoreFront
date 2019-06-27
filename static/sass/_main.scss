@@ -1,0 +1,30 @@
+.colorful {
+  color: $clrHilight;
+}
+
+div.main_content {
+  padding: 16px;
+
+  div.form_row {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  div.products_div {
+    margin: 4px;
+    border: 1px black solid;
+    background-color: $clrLight;
+    padding: 4px;
+    .product_name, .product_price {
+      font-size: 120%;
+      font-weight: bold;
+      margin-right: 10px;
+      display: inline;
+    }
+  }
+  i.changed {
+    color: $clrUnconfirmed;
+  }
+
+
+}

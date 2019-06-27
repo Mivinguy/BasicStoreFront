@@ -1,0 +1,149 @@
+timestamp: 2019-06-09T15:29:02.858000
+CREATE TABLE "web2py_session_hw4"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "locked" CHAR(1),
+    "client_ip" CHAR(64),
+    "created_datetime" TIMESTAMP,
+    "modified_datetime" TIMESTAMP,
+    "unique_key" CHAR(64),
+    "session_data" BLOB
+);
+success!
+timestamp: 2019-06-09T15:29:02.888000
+CREATE TABLE "auth_user"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "first_name" CHAR(128),
+    "last_name" CHAR(128),
+    "email" CHAR(512),
+    "password" CHAR(512),
+    "registration_key" CHAR(512),
+    "reset_password_key" CHAR(512),
+    "registration_id" CHAR(512)
+);
+success!
+timestamp: 2019-06-09T15:29:02.907000
+CREATE TABLE "auth_group"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "role" CHAR(512),
+    "description" TEXT
+);
+success!
+timestamp: 2019-06-09T15:29:02.934000
+CREATE TABLE "auth_membership"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
+    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
+);
+success!
+timestamp: 2019-06-09T15:29:02.953000
+CREATE TABLE "auth_permission"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  ,
+    "name" CHAR(512),
+    "table_name" CHAR(512),
+    "record_id" INTEGER
+);
+success!
+timestamp: 2019-06-09T15:29:02.973000
+CREATE TABLE "auth_event"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "time_stamp" TIMESTAMP,
+    "client_ip" CHAR(512),
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
+    "origin" CHAR(512),
+    "description" TEXT
+);
+success!
+timestamp: 2019-06-09T15:29:02.994000
+CREATE TABLE "auth_cas"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
+    "created_on" TIMESTAMP,
+    "service" CHAR(512),
+    "ticket" CHAR(512),
+    "renew" CHAR(1)
+);
+success!
+timestamp: 2019-06-09T15:29:03.018000
+CREATE TABLE "products"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "product_name" CHAR(512),
+    "product_description" CHAR(512),
+    "product_price" DOUBLE,
+    "desired_quantity" INTEGER,
+    "post_time" TIMESTAMP,
+    "avg_stars" CHAR(512)
+);
+success!
+timestamp: 2019-06-09T15:29:03.042000
+CREATE TABLE "reviews"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "review_email" CHAR(512),
+    "review_id" CHAR(512),
+    "review_text" CHAR(512),
+    "stars" CHAR(512)
+);
+success!
+timestamp: 2019-06-09T15:29:03.063000
+CREATE TABLE "user_star"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_email" CHAR(512),
+    "product_number" CHAR(512),
+    "rating" INTEGER
+);
+success!
+timestamp: 2019-06-09T15:29:03.083000
+CREATE TABLE "shopping_cart"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_email" CHAR(512),
+    "product_number" INTEGER REFERENCES "products" ("id") ON DELETE CASCADE  ,
+    "amount" INTEGER
+);
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+timestamp: 2019-06-09T18:25:43.183000
+CREATE TABLE "web2py_session_hw5"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "locked" CHAR(1),
+    "client_ip" CHAR(64),
+    "created_datetime" TIMESTAMP,
+    "modified_datetime" TIMESTAMP,
+    "unique_key" CHAR(64),
+    "session_data" BLOB
+);
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
+DELETE FROM "shopping_cart";
+DELETE FROM sqlite_sequence WHERE name='shopping_cart'
+success!
